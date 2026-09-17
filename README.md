@@ -43,7 +43,7 @@ Visit here; https://neuro-dossier.vercel.app/
 Community & Support
 Neuro-Dossier is built as open-access software. If you would like to support hosting costs and ongoing development:
 
-Support the project via Ko-fi: https://ko-fi.com/neurodossier
+Support the project via Ko-fi: [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z21KZ8B)
 
 Report issues, request new feature tags, or submit PRs via GitHub Issues.
 
