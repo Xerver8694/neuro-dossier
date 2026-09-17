@@ -61,19 +61,35 @@ ${social || 'Not specified.'}
   });
 
   function renderDossier(data) {
-    document.getElementById('codenameDisplay').textContent = data.codename || 'UNKNOWN';
+    // Defensively enforce single-word codename formatting
+    let codename = (data.codename || 'UNKNOWN').trim().toUpperCase();
+    if (codename.includes(' ')) {
+      codename = codename.split(' ')[0];
+    }
+
+    document.getElementById('codenameDisplay').textContent = codename;
     document.getElementById('archetypeDisplay').textContent = data.archetype_title || '';
     document.getElementById('processingStyleBadge').textContent = data.classification?.processing_style || 'Standard';
     document.getElementById('coreMechanicDisplay').textContent = data.tactical_breakdown?.core_mechanic || '';
 
+    // Strengths
     const traitsList = document.getElementById('traitsList');
-    traitsList.innerHTML = (data.tactical_breakdown?.super_traits || [])
+    const strengths = data.tactical_breakdown?.strengths || data.tactical_breakdown?.super_traits || [];
+    traitsList.innerHTML = strengths
       .map(t => `<li><strong>${t.trait_name}:</strong> ${t.lived_translation}</li>`).join('');
 
+    // Weaknesses
     const vulnList = document.getElementById('vulnerabilitiesList');
-    vulnList.innerHTML = (data.tactical_breakdown?.system_vulnerabilities || [])
+    const weaknesses = data.tactical_breakdown?.weaknesses || data.tactical_breakdown?.system_vulnerabilities || [];
+    vulnList.innerHTML = weaknesses
       .map(v => `<li><strong>${v.vulnerability_name}:</strong> ${v.mitigation_protocol}</li>`).join('');
 
+    // Areas of Excellence
+    const excellenceList = document.getElementById('excellenceList');
+    excellenceList.innerHTML = (data.areas_of_excellence || [])
+      .map(item => `<li><strong>${item.discipline}:</strong> ${item.rationale}</li>`).join('');
+
+    // Workflow & Sensory Loadout
     document.getElementById('workflowDisplay').textContent = data.ideal_operating_environment?.workflow_architecture || '';
 
     const tagContainer = document.getElementById('sensoryLoadoutBadges');
