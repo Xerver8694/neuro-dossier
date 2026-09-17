@@ -37,7 +37,7 @@ ${social || 'Not specified.'}
 
     try {
       // Calls your own backend function; no API keys exposed here
-      const response = await fetch('/api/diagnose', {
+      const response = await fetch('/api/diagnose.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ profile: synthesizedProfile })
