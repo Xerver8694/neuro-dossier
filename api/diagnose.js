@@ -1,14 +1,15 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed. Expected POST.` });
   }
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'Server configuration error: Missing API Key.' });
+    return res.status(500).json({ error: 'Server configuration error: Missing OPENROUTER_API_KEY.' });
   }
 
-  const { profile } = req.body;
+  const { profile } = req.body || {};
   if (!profile) {
     return res.status(400).json({ error: 'Missing diagnostic profile payload.' });
   }
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
   const systemPrompt = `You are Cerebro-Core, an elite psychological reframing engine. 
 Analyze the user's multi-vector neurodivergent profile across attention, execution, sensory limits, and social patterns.
 Translate their lived experiences into an objective, tactical dossier using systems-engineering and neurodiversity paradigms.
-Respond strictly in valid JSON using this schema:
+Respond strictly in valid JSON matching this schema:
 {
   "codename": "PRIMARY_CODENAME",
   "archetype_title": "Descriptive Systems Title",
@@ -57,12 +58,23 @@ Respond strictly in valid JSON using this schema:
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
-      return res.status(response.status).json({ error: err.error?.message || 'Upstream provider failure.' });
+      return res.status(response.status).json({ error: err.error?.message || `Upstream returned status ${response.status}` });
     }
 
     const data = await response.json();
-    let rawContent = data.choices[0].message.content.trim();
 
+    // Guard against null or missing message payload
+    const rawChoice = data?.choices?.[0]?.message;
+    if (!rawChoice || rawChoice.content === null || rawChoice.content === undefined) {
+      console.error('Empty payload received from model:', JSON.stringify(data));
+      return res.status(502).json({ 
+        error: `Model returned an empty completion. Reason: ${data?.choices?.[0]?.finish_reason || 'Unknown'}` 
+      });
+    }
+
+    let rawContent = rawChoice.content.trim();
+
+    // Strip Markdown codeblocks if present
     if (rawContent.startsWith('```json')) {
       rawContent = rawContent.replace(/^```json\s*/, '').replace(/\s*```$/, '');
     } else if (rawContent.startsWith('```')) {
@@ -73,6 +85,7 @@ Respond strictly in valid JSON using this schema:
     return res.status(200).json(parsedDossier);
 
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Internal execution failure.' });
+    console.error('Execution failure:', error);
+    return res.status(500).json({ error: error.message || 'Internal parsing failure.' });
   }
-}
+};
