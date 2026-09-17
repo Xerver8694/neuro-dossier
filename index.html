@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerebro-Core // Diagnostic Dossier</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>CEREBRO-CORE</h1>
+      <p class="subtitle">Tactical Strengths & Sensory Reframing Engine</p>
+    </header>
+
+    <section class="card intake-card">
+    <div class="field">
+        <label for="focusInput">01 // Attention Dynamics & Hyperfocus Triggers</label>
+        <textarea id="focusInput" rows="3" placeholder="What subjects, loops, or systems pull you into effortless flow? What tasks trigger immediate mental resistance or shutdown?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="executionInput">02 // Problem Solving, Drafting & Execution Style</label>
+        <textarea id="executionInput" rows="3" placeholder="How do you build or draft? Do you work linearly, iterate through rapid trial-and-error, or create components out of order?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="sensoryInput">03 // Sensory Landscape & Physical Load Limits</label>
+        <textarea id="sensoryInput" rows="3" placeholder="What sensory inputs drain your battery (open offices, harsh lights, certain sounds, textures)? What tools restore your baseline?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="socialInput">04 // Social Architecture & Communication Flow</label>
+        <textarea id="socialInput" rows="3" placeholder="How do you handle masking, meetings, direct vs. indirect speech, or unstructured socializing? How do you best collaborate?"></textarea>
+      </div>
+
+      <button id="generateBtn">INITIALIZE DIAGNOSTIC</button>
+    </section>
+
+    <section id="resultCard" class="card dossier-card hidden">
+      <div class="dossier-header">
+        <div>
+          <span class="classification">CLASSIFICATION: CONFIDENTIAL</span>
+          <h2 id="codenameDisplay">CODENAME</h2>
+          <p id="archetypeDisplay" class="archetype-title"></p>
+        </div>
+        <div id="processingStyleBadge" class="badge"></div>
+      </div>
+
+      <div class="dossier-section">
+        <h3>CORE MECHANIC</h3>
+        <p id="coreMechanicDisplay"></p>
+      </div>
+
+      <div class="grid-two-col">
+        <div class="dossier-section">
+          <h3>SUPER-TRAITS & STRATEGIC ADVANTAGES</h3>
+          <ul id="traitsList"></ul>
+        </div>
+        <div class="dossier-section">
+          <h3>SYSTEM THROTTLES & VULNERABILITIES</h3>
+          <ul id="vulnerabilitiesList"></ul>
+        </div>
+      </div>
+
+      <div class="dossier-section">
+        <h3>OPTIMAL OPERATING FIELD</h3>
+        <p id="workflowDisplay"></p>
+        <div id="sensoryLoadoutBadges" class="tag-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
