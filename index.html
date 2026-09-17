@@ -5,6 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEURO-DOSSIER // Neurodivergence Reframing Tool</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Dedicated disclaimer and legal styling */
+    .disclaimer-inline {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 12px;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .dossier-legal-block {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-family: monospace;
+      line-height: 1.5;
+    }
+    .site-footer {
+      margin-top: 48px;
+      padding: 24px 0;
+      border-top: 1px solid #1e293b;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #475569;
+    }
+  </style>
 </head>
 <body>
   <main class="container">
@@ -36,8 +65,10 @@
 
       <button id="generateBtn">INITIALIZE DIAGNOSTIC</button>
     </section>
-
-    <section id="resultCard" class="card dossier-card hidden">
+      <p class="disclaimer-inline">
+        Notice: Neuro-Dossier is a cognitive reframing and self-advocacy engine, not a clinical diagnostic instrument, medical assessment, or substitute for professional psychiatric evaluation.
+      </p>
+      <section id="resultCard" class="card dossier-card hidden">
        <div class="dossier-header">
         <div>
           <span class="classification">CLASSIFICATION: CONFIDENTIAL</span>
@@ -74,10 +105,15 @@
         <div id="sensoryLoadoutBadges" class="tag-container"></div>
       </div>
     </section>
+    
     <section class="card support-card">
         <h3>Keep Neuro-Dossier Free & Open-Access</h3>
         <p>This engine is 100% free to ensure every neurodivergent mind has access to reframing. If this dossier helped you, consider supporting ongoing development and server costs via monthly patronage.</p>
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'Z8Z21KZ8B');kofiwidget2.draw();</script> 
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'Z8Z21KZ8B');kofiwidget2.draw();</script>
+        <footer class="site-footer">
+      <p>Disclaimer: Neuro-Dossier is an independent cognitive reframing tool built for educational, structural modeling, and self-advocacy purposes only. Not affiliated with any medical institution.</p>
+      <p>&copy; 2026 Neuro-Dossier. All rights reserved.</p>
+    </footer> 
   </main>
 
   <script src="app.js"></script>
